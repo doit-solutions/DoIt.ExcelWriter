@@ -2,7 +2,7 @@
 A "forward only" Excel writer.
 
 ## Why should I use this?
-If you need to create Excel files based on large data sets in a fast and memory efficient manner, this is for you! This library allows you to write Excel data and stream the resulting Excel file as each row is written. This basically means that a ASP.NET application can stream the results of a database query, for example, directly to a client only holding a single result row in memory at one time.
+If you need to create Excel files based on large data sets in a fast and memory efficient manner, this is for you! This library allows you to write Excel data and stream the resulting Excel file as each row is written. This basically means that a ASP.NET application can stream the results of a database query, for example, directly to a client only holding a single result row in memory at any time.
 
 ## Sound great, how do I use it?
 First, add the library to you project.
@@ -11,7 +11,7 @@ First, add the library to you project.
 dotnet add package DoIt.ExcelWriter
 ```
 
-Then create an `ExcelWriter` object, add one (or more) typed sheets to it and write rows to the sheet.
+Then create an `ExcelWriter` instance, add one (or more) typed sheets to it and write rows to the sheet.
 
 ```c#
 // Create an ExcelWriter and either provide a filename or a Stream instance as destination.
@@ -24,11 +24,11 @@ await using (var sheet = await writer.AddSheetAsync<MyDataType>("Sheet1"))
 }
 ```
 
-You can control the apperance of the produced Excel file by using the `ExcelColumnAttribute` attribute on you data types public properties. This attribute allows you to
+You can control the apperance of the produced Excel file by using the `ExcelColumnAttribute` attribute on your data type's public properties. This attribute allows you to
 
  * change the property's column title from the default value (the property name),
  * exclude (i.e ignore) a property,
- * set a custom with of a property's column.
+ * set a custom width of a property's column.
 
 ```c#
 public record MyDataType
@@ -55,7 +55,7 @@ The library handles properties of the following types:
 
 Values of properties of other types are ignored.
 
-Note that the API only has async methods and accepts `CencellationToken`s whenever possible.
+Note that the API only has async methods and accepts `CancellationToken`s whenever possible.
 
 ## Fantastic! So what's the catch?
 Since the library streams Excel data as each row is written, it is not possible to make changes to data alreadt written. Since column definitions (like the width of a column) comes before the actual data in an Excel file, it is, for example, not possible to change the column width based on the actual data. The library does, however, set sensible default column widths based on the column's header and data type.
