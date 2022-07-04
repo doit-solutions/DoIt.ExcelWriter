@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>DoIt.ExcelWriter</PackageId>
+    <Authors>David Nordvall</Authors>
+    <Company>do IT Solutions AB</Company>
+    <Description>A "forward only" Excel writer</Description>
+    <Copyright>Copyright (c) 2022 do IT Solutions AB</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageIcon>Logo.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/doit-solutions/DoIt.ExcelWriter</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(ProjectDir)/../Logo.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SharpCompress" Version="0.32.1" />
+  </ItemGroup>
+
+</Project>
