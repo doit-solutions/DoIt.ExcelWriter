@@ -23,7 +23,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
         await WriteIntroAsync(cancellationToken);
 
         await _writer.WriteStartElementAsync(null, "row", SpreadsheetMlXmlNamespace);
-        foreach (var prop in typeof(T).GetProperties(BindingFlags.Public).Where(p => !p.GetCustomAttributes(typeof(ExcelColumnAttribute), inherit: true).OfType<ExcelColumnAttribute>().Any(a => a.Ignore)))
+        foreach (var prop in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !p.GetCustomAttributes(typeof(ExcelColumnAttribute), inherit: true).OfType<ExcelColumnAttribute>().Any(a => a.Ignore)))
         {
             await _writer.WriteStartElementAsync(null, "c", SpreadsheetMlXmlNamespace);
             switch (prop.GetValue(row))
@@ -107,7 +107,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
             await _writer.WriteStartElementAsync(null, "worksheet", SpreadsheetMlXmlNamespace);
 
             var columns = typeof(T)
-                .GetProperties(BindingFlags.Public)
+                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => !p.GetCustomAttributes(typeof(ExcelColumnAttribute), inherit: true).OfType<ExcelColumnAttribute>().Any(a => a.Ignore))
                 .Select((p, idx) =>
                 {
