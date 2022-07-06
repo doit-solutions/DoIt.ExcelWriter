@@ -58,4 +58,4 @@ Values of properties of other types are ignored.
 Note that the API only has async methods and accepts `CancellationToken`s whenever possible.
 
 ## Fantastic! So what's the catch?
-Since the library streams Excel data as each row is written, it is not possible to make changes to data alreadt written. Since column definitions (like the width of a column) comes before the actual data in an Excel file, it is, for example, not possible to change the column width based on the actual data. The library does, however, set sensible default column widths based on the column's header and data type.
+Since the library streams Excel data as each row is written, it is not possible to make changes to data already written. Since column definitions (like the width of a column) comes before the actual data in an Excel file, it is, for example, not possible to change the column width based on the actual data. The library does, however, set sensible default column widths based on each column's title and data type.
