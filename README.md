@@ -50,6 +50,7 @@ The library handles properties of the following types:
  * Floating points (`float` and `double`)
  * `decimal`
  * `DateTime` and `DateTimeOffset`
+ * `Uri` (becomes clickable links)
  * `bool`
  * `string`
 

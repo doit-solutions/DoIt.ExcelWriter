@@ -55,6 +55,9 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
                 case DateTime val:
                     await WriteDateTimeValueAsync(val, cancellationToken);
                     break;
+                case Uri val:
+                    await WriteUriValueAsync(val, cancellationToken);
+                    break;
                 case bool val:
                     await _writer.WriteAttributeStringAsync(null, "s", null, "0");
                     await _writer.WriteAttributeStringAsync(null, "t", null, "b");
@@ -193,6 +196,14 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
         await _writer.WriteAttributeStringAsync(null, "s", null, isDateTime ? "3" : "2");
         await _writer.WriteAttributeStringAsync(null, "t", null, "d");
         await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.ToString(isDateTime ? @"yyyy-MM-dd\THH:mm:ss.fff" : "yyyy-MM-dd", CultureInfo.InvariantCulture));
+    }
+
+    private async Task WriteUriValueAsync(Uri val, CancellationToken cancellationToken)
+    {
+        await _writer.WriteAttributeStringAsync(null, "s", null, "0");
+        await _writer.WriteAttributeStringAsync(null, "t", null, "str");
+        await _writer.WriteElementStringAsync(null, "f", SpreadsheetMlXmlNamespace, $"HYPERLINK(\"{val}\")");
+        await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.ToString());
     }
 
     private async Task WriteStringValueAsync(string val, CancellationToken cancellationToken)
