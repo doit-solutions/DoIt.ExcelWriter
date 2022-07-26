@@ -86,7 +86,7 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
                 await writer.WriteAttributeStringAsync(null, "val", null, "11");
                 await writer.WriteEndElementAsync(); // sz
                 await writer.WriteStartElementAsync(null, "color", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "rgb", null, "FF000000");
+                await writer.WriteAttributeStringAsync(null, "theme", null, "1");
                 await writer.WriteEndElementAsync(); // color
                 await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
@@ -105,7 +105,26 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
                 await writer.WriteAttributeStringAsync(null, "val", null, "11");
                 await writer.WriteEndElementAsync(); // sz
                 await writer.WriteStartElementAsync(null, "color", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "rgb", null, "FF000000");
+                await writer.WriteAttributeStringAsync(null, "theme", null, "1");
+                await writer.WriteEndElementAsync(); // color
+                await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
+                await writer.WriteEndElementAsync(); // name
+                await writer.WriteStartElementAsync(null, "family", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "val", null, "2");
+                await writer.WriteEndElementAsync(); // family
+                await writer.WriteEndElementAsync(); // font
+                await writer.WriteStartElementAsync(null, "font", SpreadsheetMlXmlNamespace);
+                await writer.WriteStartElementAsync(null, "u", SpreadsheetMlXmlNamespace);
+                await writer.WriteEndElementAsync(); // b
+                await writer.WriteStartElementAsync(null, "vertAlign", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "val", null, "baseline");
+                await writer.WriteEndElementAsync(); // vertAlign
+                await writer.WriteStartElementAsync(null, "sz", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "val", null, "11");
+                await writer.WriteEndElementAsync(); // sz
+                await writer.WriteStartElementAsync(null, "color", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "theme", null, "10");
                 await writer.WriteEndElementAsync(); // color
                 await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
@@ -203,7 +222,7 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
                 await writer.WriteEndElementAsync(); // borders
 
                 await writer.WriteStartElementAsync(null, "cellStyleXfs", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "count", null, "6");
+                await writer.WriteAttributeStringAsync(null, "count", null, "7");
                 await writer.WriteStartElementAsync(null, "xf", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "numFmtId", null, "0");
                 await writer.WriteAttributeStringAsync(null, "fontId", null, "0");
@@ -299,10 +318,26 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
                 await writer.WriteAttributeStringAsync(null, "hidden", null, "0");
                 await writer.WriteEndElementAsync(); // protection
                 await writer.WriteEndElementAsync(); // xf
+                // Hyperlink style
+                await writer.WriteStartElementAsync(null, "xf", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "numFmtId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "fontId", null, "2");
+                await writer.WriteAttributeStringAsync(null, "fillId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "borderId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "applyNumberFormat", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyFill", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyBorder", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyAlignment", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyProtection", null, "1");
+                await writer.WriteStartElementAsync(null, "protection", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "locked", null, "1");
+                await writer.WriteAttributeStringAsync(null, "hidden", null, "0");
+                await writer.WriteEndElementAsync(); // protection
+                await writer.WriteEndElementAsync(); // xf
                 await writer.WriteEndElementAsync(); // cellStyleXfs
 
                 await writer.WriteStartElementAsync(null, "cellXfs", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "count", null, "6");
+                await writer.WriteAttributeStringAsync(null, "count", null, "7");
                 await writer.WriteStartElementAsync(null, "xf", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "numFmtId", null, "0");
                 await writer.WriteAttributeStringAsync(null, "fontId", null, "0");
@@ -446,6 +481,34 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
                 await writer.WriteStartElementAsync(null, "xf", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "numFmtId", null, "3");
                 await writer.WriteAttributeStringAsync(null, "fontId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "fillId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "borderId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "xfId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "applyNumberFormat", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyFill", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyBorder", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyAlignment", null, "1");
+                await writer.WriteAttributeStringAsync(null, "applyProtection", null, "1");
+                await writer.WriteStartElementAsync(null, "alignment", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "horizontal", null, "general");
+                await writer.WriteAttributeStringAsync(null, "vertical", null, "bottom");
+                await writer.WriteAttributeStringAsync(null, "textRotation", null, "0");
+                await writer.WriteAttributeStringAsync(null, "wrapText", null, "0");
+                await writer.WriteAttributeStringAsync(null, "indent", null, "0");
+                await writer.WriteAttributeStringAsync(null, "relativeIndent", null, "0");
+                await writer.WriteAttributeStringAsync(null, "justifyLastLine", null, "0");
+                await writer.WriteAttributeStringAsync(null, "shrinkToFit", null, "0");
+                await writer.WriteAttributeStringAsync(null, "readingOrder", null, "0");
+                await writer.WriteEndElementAsync(); // alignment
+                await writer.WriteStartElementAsync(null, "protection", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "locked", null, "1");
+                await writer.WriteAttributeStringAsync(null, "hidden", null, "0");
+                await writer.WriteEndElementAsync(); // protection
+                await writer.WriteEndElementAsync(); // xf
+                // Hyperlink
+                await writer.WriteStartElementAsync(null, "xf", SpreadsheetMlXmlNamespace);
+                await writer.WriteAttributeStringAsync(null, "numFmtId", null, "0");
+                await writer.WriteAttributeStringAsync(null, "fontId", null, "2");
                 await writer.WriteAttributeStringAsync(null, "fillId", null, "0");
                 await writer.WriteAttributeStringAsync(null, "borderId", null, "0");
                 await writer.WriteAttributeStringAsync(null, "xfId", null, "0");
