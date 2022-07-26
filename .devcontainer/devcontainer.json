@@ -8,7 +8,8 @@
     "extensions": [
         "ms-dotnettools.csharp",
         "editorconfig.editorconfig",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "dotjoshjohnson.xml"
     ],
     "mounts": [
         "source=vscode-extensions,target=/root/.vscode-server/extensions,type=volume"

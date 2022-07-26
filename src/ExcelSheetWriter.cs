@@ -58,6 +58,9 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
                 case Uri val:
                     await WriteUriValueAsync(val, cancellationToken);
                     break;
+                case Hyperlink val:
+                    await WriteHyperlinkValueAsync(val, cancellationToken);
+                    break;
                 case bool val:
                     await _writer.WriteAttributeStringAsync(null, "s", null, "0");
                     await _writer.WriteAttributeStringAsync(null, "t", null, "b");
@@ -202,10 +205,18 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
 
     private async Task WriteUriValueAsync(Uri val, CancellationToken cancellationToken)
     {
-        await _writer.WriteAttributeStringAsync(null, "s", null, "0");
+        await _writer.WriteAttributeStringAsync(null, "s", null, "6");
         await _writer.WriteAttributeStringAsync(null, "t", null, "str");
         await _writer.WriteElementStringAsync(null, "f", SpreadsheetMlXmlNamespace, $"HYPERLINK(\"{val}\")");
         await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.ToString());
+    }
+
+    private async Task WriteHyperlinkValueAsync(Hyperlink val, CancellationToken cancellationToken)
+    {
+        await _writer.WriteAttributeStringAsync(null, "s", null, "6");
+        await _writer.WriteAttributeStringAsync(null, "t", null, "str");
+        await _writer.WriteElementStringAsync(null, "f", SpreadsheetMlXmlNamespace, $"HYPERLINK(\"{val.Uri.ToString()}\"{(val.Title != null ? $",\"{val.Title.Replace("\"", "\"\"")}\"" : string.Empty)})");
+        await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.Title ?? val.Uri.ToString());
     }
 
     private async Task WriteStringValueAsync(string val, CancellationToken cancellationToken)
