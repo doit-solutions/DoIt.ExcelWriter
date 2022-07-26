@@ -20,7 +20,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
 
     public async Task WriteAsync(T row, CancellationToken cancellationToken = default)
     {
-        await WriteIntroAsync(cancellationToken);
+        await WriteIntroAsync();
 
         await _writer.WriteStartElementAsync(null, "row", SpreadsheetMlXmlNamespace);
         foreach (var prop in typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => !p.GetCustomAttributes(typeof(ExcelColumnAttribute), inherit: true).OfType<ExcelColumnAttribute>().Any(a => a.Ignore)))
@@ -92,17 +92,19 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
 
     public void Dispose()
     {
+        WriteIntroAsync().RunSynchronously();
         WriteOutroAsync().RunSynchronously();
         _writer.Dispose();
     }
 
     public async ValueTask DisposeAsync()
     {
+        await WriteIntroAsync();
         await WriteOutroAsync();
         await _writer.DisposeAsync();
     }
 
-    private async Task WriteIntroAsync(CancellationToken cancellationToken)
+    private async Task WriteIntroAsync()
     {
         if (!_introWritten)
         {
