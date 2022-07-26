@@ -16,8 +16,10 @@ dotnet add package DoIt.ExcelWriter
 Then create an `ExcelWriter` instance, add one (or more) typed sheets to it and write rows to the sheet.
 
 ```c#
+using DoIt.ExcelWriter;
+
 // Create an ExcelWriter and either provide a filename or a Stream instance as destination.
-await using (var writer = new ExcelWriter("test.xlsx"))
+await using (var writer = new DoIt.ExcelWriter.ExcelWriter("test.xlsx"))
 // Add a sheet. Note that the sheet is typed and only accepts rows of the specified type!
 await using (var sheet = await writer.AddSheetAsync<MyDataType>("Sheet1"))
 {
