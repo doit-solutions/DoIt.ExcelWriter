@@ -4,7 +4,7 @@
 A "forward only" Excel writer.
 
 ## Why should I use this?
-If you need to create Excel files based on large data sets in a fast and memory efficient manner, this is for you! This library allows you to write Excel data and stream the resulting Excel file as each row is written. This basically means that a ASP.NET application can stream the results of a database query, for example, directly to a client only holding a single result row in memory at any time.
+If you need to create Excel files based on large data sets in a fast and memory efficient manner, this is for you! This library allows you to write Excel data and stream the resulting Excel file as each row is written. This basically means that an ASP.NET application can stream the results of a database query, for example, directly to a client only holding a single result row in memory at any time.
 
 ## Sound great, how do I use it?
 First, add the library to you project.
