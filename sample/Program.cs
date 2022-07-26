@@ -4,7 +4,7 @@ await using (var writer = new ExcelWriter("test.xlsx"))
 {
     await using (var sheet = await writer.AddSheetAsync<FirstType>("Sheet1"))
     {
-        await sheet.WriteAsync(new FirstType { Id = 1, FirstName = "David", LastName = "Nordvall", Birthday = new DateTime(1980, 11, 12), Old = false, Rating = 1000000.0m, HomePage = new Hyperlink(new Uri("https://www.internet.com"), "Homepage of David") });
+        await sheet.WriteAsync(new FirstType { Id = 1, FirstName = "David", LastName = "Nordvall", Birthday = new DateTime(1980, 11, 12), Old = false, Rating = 1000000.0m, HomePage = new Hyperlink(new Uri("https://www.internet.com"), "Homepage of \"The Amazing David\"") });
     }
     await using (var sheet = await writer.AddSheetAsync<SecondType>("Sheet2"))
     {

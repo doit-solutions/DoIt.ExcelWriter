@@ -215,7 +215,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
     {
         await _writer.WriteAttributeStringAsync(null, "s", null, "0");
         await _writer.WriteAttributeStringAsync(null, "t", null, "str");
-        await _writer.WriteElementStringAsync(null, "f", SpreadsheetMlXmlNamespace, $"HYPERLINK(\"{val.Uri.ToString()}\"{(val.Title != null ? $",\"{val.Title}\"" : string.Empty)})");
+        await _writer.WriteElementStringAsync(null, "f", SpreadsheetMlXmlNamespace, $"HYPERLINK(\"{val.Uri.ToString()}\"{(val.Title != null ? $",\"{val.Title.Replace("\"", "\"\"")}\"" : string.Empty)})");
         await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.Title ?? val.Uri.ToString());
     }
 
