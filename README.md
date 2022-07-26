@@ -49,8 +49,8 @@ The library handles properties of the following types:
  * Integers (`byte`, `short`, `int` and `long`)
  * Floating points (`float` and `double`)
  * `decimal`
- * `DateTime` and `DateTimeOffset`
- * `Uri` (becomes clickable links)
+ * `System.DateTime` and `System.DateTimeOffset`
+ * `System.Uri` and `DoIt.ExcelWriter.Hyperlink` (becomes clickable links)
  * `bool`
  * `string`
 
