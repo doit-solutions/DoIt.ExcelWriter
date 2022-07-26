@@ -1,4 +1,6 @@
 # DoIt.ExcelWriter
+[![NuGet Badge](https://buildstats.info/nuget/DoIt.ExcelWriter)](https://www.nuget.org/packages/DoIt.ExcelWriter/)
+
 A "forward only" Excel writer.
 
 ## Why should I use this?
