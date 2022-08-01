@@ -18,8 +18,8 @@ Then create an `ExcelWriter` instance, add one (or more) typed sheets to it and 
 ```c#
 using DoIt.ExcelWriter;
 
-// Create an ExcelWriter and either provide a filename or a Stream instance as destination.
-await using (var writer = new DoIt.ExcelWriter.ExcelWriter("test.xlsx"))
+// Create an IExcelWriter and either provide a filename or a Stream instance as destination.
+await using (var writer = ExcelWriterFactory.Create("test.xlsx"))
 // Add a sheet. Note that the sheet is typed and only accepts rows of the specified type!
 await using (var sheet = await writer.AddSheetAsync<MyDataType>("Sheet1"))
 {

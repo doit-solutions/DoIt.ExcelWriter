@@ -5,7 +5,7 @@ using SharpCompress.Writers.Zip;
 
 namespace DoIt.ExcelWriter;
 
-public class ExcelWriter : IDisposable, IAsyncDisposable
+public class ExcelWriter : IExcelWriter
 {
     private const string RelationshipsXmlNamespace = "http://schemas.openxmlformats.org/package/2006/relationships";
     private const string SpreadsheetMlXmlNamespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
@@ -16,10 +16,12 @@ public class ExcelWriter : IDisposable, IAsyncDisposable
 
     private bool _introWritten = false;
 
+    [Obsolete("This constructor will be removed in a future version. Please use ExcelWriterFactory.Create() instead.")]
     public ExcelWriter(string fileName): this(File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
     {
     }
     
+    [Obsolete("This constructor will be removed in a future version. Please use ExcelWriterFactory.Create() instead.")]
     public ExcelWriter(Stream destination, bool leaveOpen = false)
     {
         _zip = new ZipWriter(destination, new ZipWriterOptions(SharpCompress.Common.CompressionType.Deflate) { LeaveStreamOpen = leaveOpen });

@@ -1,6 +1,6 @@
 ﻿using DoIt.ExcelWriter;
 
-await using (var writer = new ExcelWriter("test.xlsx"))
+await using (var writer = ExcelWriterFactory.Create("test.xlsx"))
 {
     await using (var sheet = await writer.AddSheetAsync<FirstType>("Sheet1"))
     {
