@@ -57,6 +57,7 @@ The library handles properties of the following types:
  * `System.Uri` and `DoIt.ExcelWriter.Hyperlink` (becomes clickable links)
  * `bool`
  * `string`
+ * `DoIt.ExcelWriter.MoneyAmount`
 
 Values of properties of other types are ignored.
 

@@ -69,6 +69,9 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
                 case string val:
                     await WriteStringValueAsync(val, cancellationToken);
                     break;
+                case MoneyAmount val:
+                    await WriteMoneyAmountValueAsync(val, cancellationToken);
+                    break;
             }
             await _writer.WriteEndElementAsync(); // c
         }
@@ -138,6 +141,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
                             var type when type == typeof(bool) => 7.0m,
                             var type when type == typeof(DateTime) => 14.9m,
                             var type when type == typeof(DateTimeOffset) => 14.9m,
+                            var type when type == typeof(MoneyAmount) => 13.0m,
                             _ => 2.4m
                         }
                     );
@@ -226,5 +230,10 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
         await _writer.WriteStartElementAsync(null, "is", SpreadsheetMlXmlNamespace);
         await _writer.WriteElementStringAsync(null, "t", SpreadsheetMlXmlNamespace, val);
         await _writer.WriteEndElementAsync(); // is
+    }
+
+    public async Task WriteMoneyAmountValueAsync(MoneyAmount val, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }
