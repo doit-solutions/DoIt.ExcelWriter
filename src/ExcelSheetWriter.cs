@@ -104,7 +104,11 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
     {
         await WriteIntroAsync();
         await WriteOutroAsync();
+        #if NET6_0_OR_GREATER
         await _writer.DisposeAsync();
+        #else
+        _writer.Dispose();
+        #endif
     }
 
     private async Task WriteIntroAsync()
