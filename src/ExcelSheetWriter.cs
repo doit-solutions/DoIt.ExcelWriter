@@ -1,6 +1,5 @@
 using System.Globalization;
 using System.Reflection;
-using System.Text;
 using System.Xml;
 
 namespace DoIt.ExcelWriter;
@@ -15,7 +14,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
 
     public ExcelSheetWriter(Stream desination)
     {
-        _writer = XmlWriter.Create(desination, new XmlWriterSettings { Async = true, CloseOutput = true, Encoding = Encoding.UTF8 });
+        _writer = XmlWriterFactory.Create(desination);
     }
 
     public async Task WriteAsync(T row, CancellationToken cancellationToken = default)
