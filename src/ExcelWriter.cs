@@ -35,7 +35,7 @@ public class ExcelWriter : IExcelWriter
 
     public void Dispose()
     {
-        WriteOutroAsync().RunSynchronously();
+        WriteOutroAsync().ConfigureAwait(false).GetAwaiter().GetResult();
         _zip.Dispose();
     }
 
