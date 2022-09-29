@@ -148,7 +148,7 @@ internal class ExcelSheetWriter<T> : IExcelSheetWriter<T>
             await _writer.WriteStartElementAsync(null, "cols", SpreadsheetMlXmlNamespace);
             foreach (var column in columns)
             {
-                var width = Math.Max(column.MinWidth, column.CustomWidth.HasValue && column.CustomWidth.Value > 0.0 ? (decimal)column.CustomWidth : MeasureStringWidth(column.Name));
+                var width = Math.Max(column.MinWidth, column.CustomWidth.HasValue && column.CustomWidth.Value > 0.0 ? (decimal)column.CustomWidth : column.Name.Count() * 1.2m);
                 await _writer.WriteStartElementAsync(null, "col", SpreadsheetMlXmlNamespace);
                 await _writer.WriteAttributeStringAsync(null, "min", null, column.Index.ToString(CultureInfo.InvariantCulture));
                 await _writer.WriteAttributeStringAsync(null, "max", null, column.Index.ToString(CultureInfo.InvariantCulture));
