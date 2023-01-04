@@ -29,9 +29,9 @@ await using (var writer = ExcelWriterFactory.Create("test.xlsx"))
     }
     // Add a sheet accepting a DbDataReader.
     await using (var sheet = await writer.AddDbDataReaderSheetAsync("DbDataReader sheet"))
+    // Get you DbDataReader instance somehow.
+    await using (var reader = await GetDatabaseQueryResultsAsync())
     {
-        // Get you DbDataReader instance somehow.
-        var reader = await GetDatabaseQueryResultsAsync();
         // Write all rows at once. It is also possible to write one row at a time, leaving
         // responsibility of advancing the reader to the caller.
         await sheet.WriteAllAsync(reader);
