@@ -47,6 +47,7 @@ internal class DbDataReaderExcelSheetWriter : BaseExcelSheetWriter, IDbDataReade
                 .Select(async idx => reader.GetFieldType(idx) switch
                 {
                     var type when type == typeof(byte) => (object?)(await reader.IsDBNullAsync(idx, cancellationToken) ? null : await reader.GetFieldValueAsync<byte>(idx, cancellationToken)),
+                    var type when type == typeof(sbyte) => (object?)(await reader.IsDBNullAsync(idx, cancellationToken) ? null : await reader.GetFieldValueAsync<sbyte>(idx, cancellationToken)),
                     var type when type == typeof(short) => (object?)(await reader.IsDBNullAsync(idx, cancellationToken) ? null : await reader.GetFieldValueAsync<short>(idx, cancellationToken)),
                     var type when type == typeof(int) => (object?)(await reader.IsDBNullAsync(idx, cancellationToken) ? null : await reader.GetFieldValueAsync<int>(idx, cancellationToken)),
                     var type when type == typeof(long) => (object?)(await reader.IsDBNullAsync(idx, cancellationToken) ? null : await reader.GetFieldValueAsync<long>(idx, cancellationToken)),

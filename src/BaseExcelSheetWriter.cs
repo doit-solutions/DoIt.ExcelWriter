@@ -49,6 +49,7 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
                 var minWidth = column.Type switch
                 {
                     var type when type == typeof(byte) => 8.59m,
+                    var type when type == typeof(sbyte) => 8.59m,
                     var type when type == typeof(short) => 8.59m,
                     var type when type == typeof(int) => 8.59m,
                     var type when type == typeof(long) => 8.59m,
@@ -105,6 +106,9 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
             switch (value)
             {
                 case byte val:
+                    await WriteIntegerValueAsync(val, cancellationToken);
+                    break;
+                case sbyte val:
                     await WriteIntegerValueAsync(val, cancellationToken);
                     break;
                 case short val:
