@@ -1,7 +1,8 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0.300-bullseye-slim
+FROM mcr.microsoft.com/dotnet/sdk:6.0.404-bullseye-slim
+ARG TARGETARCH
 RUN apt update && apt install -y zsh git
 ENV SHELL /bin/zsh
-ADD https://github.com/JanDeDobbeleer/oh-my-posh3/releases/latest/download/posh-linux-amd64 /usr/local/bin/oh-my-posh
+RUN wget -O /usr/local/bin/oh-my-posh https://github.com/JanDeDobbeleer/oh-my-posh3/releases/latest/download/posh-linux-`echo ${TARGETARCH} | sed s/aarch64/arm64/ | sed s/x86_64/amd64/`
 RUN chmod +x /usr/local/bin/oh-my-posh
 ADD https://github.com/JanDeDobbeleer/oh-my-posh3/raw/main/themes/paradox.omp.json /root/downloadedtheme.json
 RUN echo eval "$(oh-my-posh prompt init zsh --config /root/downloadedtheme.json)" >> /root/.zshrc
