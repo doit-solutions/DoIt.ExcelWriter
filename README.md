@@ -13,22 +13,33 @@ First, add the library to you project.
 dotnet add package DoIt.ExcelWriter
 ```
 
-Then create an `ExcelWriter` instance, add one (or more) typed sheets to it and write rows to the sheet.
+Create an `ExcelWriter` instance. Then, either add one (or more) typed sheets to it and write typed rows to the sheet, or add one (or more) sheets accepting a `System.Data.Common.DbDataReader` as source and stream database results directly to an Excel file/stream (without having to map each row to a .NET class/record).
 
 ```c#
 using DoIt.ExcelWriter;
 
 // Create an IExcelWriter and either provide a filename or a Stream instance as destination.
 await using (var writer = ExcelWriterFactory.Create("test.xlsx"))
-// Add a sheet. Note that the sheet is typed and only accepts rows of the specified type!
-await using (var sheet = await writer.AddSheetAsync<MyDataType>("Sheet1"))
 {
-    // Each call to WriteAsync will write all public properties as a single row.
-    await sheet.WriteAsync(new MyDataType { ... });
+    // Add a typed sheet. Note that the sheet is typed and only accepts rows of the specified type!
+    await using (var sheet = await writer.AddSheetAsync<MyDataType>("Sheet1"))
+    {
+        // Each call to WriteAsync will write all public properties as a single row.
+        await sheet.WriteAsync(new MyDataType { ... });
+    }
+    // Add a sheet accepting a DbDataReader.
+    await using (var sheet = await writer.AddDbDataReaderSheetAsync("DbDataReader sheet"))
+    {
+        // Get you DbDataReader instance somehow.
+        var reader = await GetDatabaseQueryResultsAsync();
+        // Write all rows at once. It is also possible to write one row at a time, leaving
+        // responsibility of advancing the reader to the caller.
+        await sheet.WriteAllAsync(reader);
+    }
 }
 ```
 
-You can control the apperance of the produced Excel file by using the `ExcelColumnAttribute` attribute on your data type's public properties. This attribute allows you to
+When creating typed Excel sheets, you can control the apperance of the produced Excel file by using the `ExcelColumnAttribute` attribute on your data type's public properties. This attribute allows you to
 
  * change the property's column title from the default value (the property name),
  * exclude (i.e ignore) a property,
@@ -64,3 +75,5 @@ Note that the API only has async methods and accepts `CancellationToken`s whenev
 
 ## Fantastic! So what's the catch?
 Since the library streams Excel data as each row is written, it is not possible to make changes to data already written. Since column definitions (like the width of a column) comes before the actual data in an Excel file, it is, for example, not possible to change the column width based on the actual data. The library does, however, set sensible default column widths based on each column's title and data type.
+
+The library, furthermore, does not used shared strings (since that would require that all string are known in advanced). This may lead to larger than necessary Excel files.

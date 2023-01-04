@@ -33,6 +33,15 @@ public class ExcelWriter : IExcelWriter
         return new ExcelSheetWriter<T>(_zip.WriteToStream($"/xl/worksheets/sheet{_sheets.Count()}.xml", new ZipWriterEntryOptions {}));
     }
 
+    public async Task<IDbDataReaderExcelSheetWriter> AddDbDataReaderSheetAsync(string? name = null, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        await WriteIntroAsync(cancellationToken);
+
+        var idx = _sheets.Count() + 1;
+        _sheets.Add(new KeyValuePair<int, string>(idx, name ?? $"Sheet{idx.ToString(CultureInfo.InvariantCulture)}"));
+        return new DbDataReaderExcelSheetWriter(_zip.WriteToStream($"/xl/worksheets/sheet{_sheets.Count()}.xml", new ZipWriterEntryOptions {}));
+    }
+
     public void Dispose()
     {
         WriteOutroAsync().ConfigureAwait(false).GetAwaiter().GetResult();
