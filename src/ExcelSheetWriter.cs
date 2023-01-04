@@ -4,8 +4,6 @@ namespace DoIt.ExcelWriter;
 
 internal class ExcelSheetWriter<T> : BaseExcelSheetWriter, IExcelSheetWriter<T>
 {
-    private const string SpreadsheetMlXmlNamespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
-
     public ExcelSheetWriter(Stream destination): base(destination)
     {
     }
