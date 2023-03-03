@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:6.0.404-bullseye-slim
+FROM mcr.microsoft.com/dotnet/sdk:7.0.201-jammy
 ARG TARGETARCH
 RUN apt update && apt install -y zsh git
 ENV SHELL /bin/zsh
