@@ -61,7 +61,7 @@ public record MyDataType
 
 The library handles properties of the following types:
 
- * Integers (`byte`, `sbyte`, `short`, `int` and `long`)
+ * Integers (`byte`, `sbyte`, `short`, `ushort`, `int`, `uint`, `long` and `ulong`)
  * Floating points (`float` and `double`)
  * `decimal`
  * `System.DateTime` and `System.DateTimeOffset`

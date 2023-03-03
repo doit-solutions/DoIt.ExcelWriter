@@ -51,8 +51,11 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
                     var type when type == typeof(byte) => 8.59m,
                     var type when type == typeof(sbyte) => 8.59m,
                     var type when type == typeof(short) => 8.59m,
+                    var type when type == typeof(ushort) => 8.59m,
                     var type when type == typeof(int) => 8.59m,
+                    var type when type == typeof(uint) => 8.59m,
                     var type when type == typeof(long) => 8.59m,
+                    var type when type == typeof(ulong) => 8.59m,
                     var type when type == typeof(float) => 11.2m,
                     var type when type == typeof(double) => 11.2m,
                     var type when type == typeof(decimal) => 11.2m,
@@ -114,11 +117,20 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
                 case short val:
                     await WriteIntegerValueAsync(val, cancellationToken);
                     break;
+                case ushort val:
+                    await WriteUnsignedIntegerValueAsync(val, cancellationToken);
+                    break;
                 case int val:
                     await WriteIntegerValueAsync(val, cancellationToken);
                     break;
+                case uint val:
+                    await WriteUnsignedIntegerValueAsync(val, cancellationToken);
+                    break;
                 case long val:
                     await WriteIntegerValueAsync(val, cancellationToken);
+                    break;
+                case ulong val:
+                    await WriteUnsignedIntegerValueAsync(val, cancellationToken);
                     break;
                 case float val:
                     await WriteDecimalValueAsync((decimal)val, cancellationToken);
@@ -156,6 +168,13 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
     }
 
     protected async Task WriteIntegerValueAsync(long val, CancellationToken cancellationToken)
+    {
+        await _writer.WriteAttributeStringAsync(null, "s", null, "5");
+        await _writer.WriteAttributeStringAsync(null, "t", null, "n");
+        await _writer.WriteElementStringAsync(null, "v", SpreadsheetMlXmlNamespace, val.ToString(CultureInfo.InvariantCulture));
+    }
+
+    protected async Task WriteUnsignedIntegerValueAsync(ulong val, CancellationToken cancellationToken)
     {
         await _writer.WriteAttributeStringAsync(null, "s", null, "5");
         await _writer.WriteAttributeStringAsync(null, "t", null, "n");
