@@ -98,7 +98,7 @@ public class ExcelWriter : IExcelWriter
                 await writer.WriteAttributeStringAsync(null, "theme", null, "1");
                 await writer.WriteEndElementAsync(); // color
                 await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
+                await writer.WriteAttributeStringAsync(null, "val", null, "Aptos Narrow");
                 await writer.WriteEndElementAsync(); // name
                 await writer.WriteStartElementAsync(null, "family", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "val", null, "2");
@@ -117,7 +117,7 @@ public class ExcelWriter : IExcelWriter
                 await writer.WriteAttributeStringAsync(null, "theme", null, "1");
                 await writer.WriteEndElementAsync(); // color
                 await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
+                await writer.WriteAttributeStringAsync(null, "val", null, "Aptos Narrow");
                 await writer.WriteEndElementAsync(); // name
                 await writer.WriteStartElementAsync(null, "family", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "val", null, "2");
@@ -136,7 +136,7 @@ public class ExcelWriter : IExcelWriter
                 await writer.WriteAttributeStringAsync(null, "theme", null, "10");
                 await writer.WriteEndElementAsync(); // color
                 await writer.WriteStartElementAsync(null, "name", SpreadsheetMlXmlNamespace);
-                await writer.WriteAttributeStringAsync(null, "val", null, "Calibri");
+                await writer.WriteAttributeStringAsync(null, "val", null, "Aptos Narrow");
                 await writer.WriteEndElementAsync(); // name
                 await writer.WriteStartElementAsync(null, "family", SpreadsheetMlXmlNamespace);
                 await writer.WriteAttributeStringAsync(null, "val", null, "2");
