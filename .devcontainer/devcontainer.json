@@ -1,21 +1,24 @@
 {
     "name": "do IT Excel Writer",
-    "dockerFile": "../Dockerfile",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:8.0-jammy",
+    "features": {},
+    "containerEnv": {
+        "SHELL": "/bin/zsh"
+    },
     "customizations": {
         "vscode": {
             "settings": {
                 "editor.fontFamily": "'Cascadia Code PL', monospace",
-                "editor.fontLigatures": true
+                "editor.fontLigatures": true,
+                "editor.formatOnSave": true
             },
             "extensions": [
-                "ms-dotnettools.csharp",
+                "ms-dotnettools.vscodeintellicode-csharp",
                 "editorconfig.editorconfig",
                 "eamodio.gitlens",
                 "dotjoshjohnson.xml"
             ]
         }
     },
-    "mounts": [
-        "source=vscode-extensions,target=/root/.vscode-server/extensions,type=volume"
-    ]
+    "onCreateCommand": "git config --global --add safe.directory /workspaces/Sakra.Spar.Strivo2Xlsx && dotnet tool install --global dotnet-outdated-tool"
 }
