@@ -5,7 +5,7 @@ namespace DoIt.ExcelWriter;
 
 internal class DbDataReaderExcelSheetWriter : BaseExcelSheetWriter, IDbDataReaderExcelSheetWriter
 {
-    public DbDataReaderExcelSheetWriter(Stream destination): base(destination)
+    public DbDataReaderExcelSheetWriter(Stream destination) : base(destination)
     {
     }
 

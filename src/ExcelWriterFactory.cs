@@ -14,7 +14,7 @@ public static class ExcelWriterFactory
     /// </returns>
     public static IExcelWriter Create(string fileName)
     {
-        return ExcelWriterFactory.Create(File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read));
+        return Create(File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read));
     }
 
     /// <summary>
@@ -32,8 +32,8 @@ public static class ExcelWriterFactory
     /// </returns>
     public static IExcelWriter Create(Stream stream, bool leaveOpen = false)
     {
-        #pragma warning disable CS0618
+#pragma warning disable CS0618
         return new ExcelWriter(stream, leaveOpen);
-        #pragma warning restore CS0618
+#pragma warning restore CS0618
     }
 }

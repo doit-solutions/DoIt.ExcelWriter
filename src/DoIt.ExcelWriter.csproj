@@ -14,9 +14,9 @@
     <Description>A "forward only" Excel writer</Description>
     <Copyright>Copyright (c) 2022 do IT Solutions AB</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageIcon>Logo.png</PackageIcon>
+    <PackageIcon>Logo.png</PackageIcon>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-		<PackageProjectUrl>https://github.com/doit-solutions/DoIt.ExcelWriter</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/doit-solutions/DoIt.ExcelWriter</PackageProjectUrl>
     <PackageTags>excel</PackageTags>
   </PropertyGroup>
 

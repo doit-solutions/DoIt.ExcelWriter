@@ -29,11 +29,11 @@ internal abstract class BaseExcelSheetWriter : IDisposable, IAsyncDisposable
     {
         await WriteIntroAsync(Array.Empty<ColumnSpec>(), CancellationToken.None);
         await WriteOutroAsync();
-        #if NET6_0_OR_GREATER
+#if NET6_0_OR_GREATER
         await _writer.DisposeAsync();
-        #else
+#else
         _writer.Dispose();
-        #endif
+#endif
     }
 
     protected async Task WriteIntroAsync(IEnumerable<ColumnSpec> columns, CancellationToken cancellationToken)

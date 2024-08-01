@@ -14,7 +14,7 @@ public interface IExcelWriter : IAsyncDisposable, IDisposable
     ///     A <c>CancellationToken</c> which will be passed on to all underlying asynchronous operations. Using the
     ///     provided cancellation token, it is possible to cancel the adding of the sheet from outside the method.
     /// </param>
-    Task<IExcelSheetWriter<T>> AddSheetAsync<T>(string? name = null, CancellationToken cancellationToken = default(CancellationToken));
+    Task<IExcelSheetWriter<T>> AddSheetAsync<T>(string? name = null, CancellationToken cancellationToken = default);
 
     /// <summary>
     ///     Adds a sheet to the Excel file. An active <c>DbDataReader</c> can be written to the sheet, wither one row at
@@ -30,5 +30,5 @@ public interface IExcelWriter : IAsyncDisposable, IDisposable
     ///     A <c>CancellationToken</c> which will be passed on to all underlying asynchronous operations. Using the
     ///     provided cancellation token, it is possible to cancel the adding of the sheet from outside the method.
     /// </param>
-    Task<IDbDataReaderExcelSheetWriter> AddDbDataReaderSheetAsync(string? name = null, CancellationToken cancellationToken = default(CancellationToken));
+    Task<IDbDataReaderExcelSheetWriter> AddDbDataReaderSheetAsync(string? name = null, CancellationToken cancellationToken = default);
 }

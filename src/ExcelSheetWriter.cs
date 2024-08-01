@@ -4,7 +4,7 @@ namespace DoIt.ExcelWriter;
 
 internal class ExcelSheetWriter<T> : BaseExcelSheetWriter, IExcelSheetWriter<T>
 {
-    public ExcelSheetWriter(Stream destination): base(destination)
+    public ExcelSheetWriter(Stream destination) : base(destination)
     {
     }
 
