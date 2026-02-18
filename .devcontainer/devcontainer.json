@@ -2,23 +2,38 @@
     "name": "do IT Excel Writer",
     "image": "mcr.microsoft.com/devcontainers/dotnet:8.0-jammy",
     "features": {},
-    "containerEnv": {
-        "SHELL": "/bin/zsh"
-    },
     "customizations": {
         "vscode": {
             "settings": {
-                "editor.fontFamily": "'Cascadia Code PL', monospace",
+                "chat.disableAIFeatures": true,
+                "dotnetAcquisitionExtension.enableTelemetry": false,
+                "editor.fontFamily": "'Cascadia Code NF', 'Cascadia Code PL', 'Cascadia Code', monospace",
                 "editor.fontLigatures": true,
-                "editor.formatOnSave": true
+                "editor.formatOnSave": true,
+                "gitlens.ai.enabled": false,
+                "gitlens.plusFeatures.enabled": false,
+                "gitlens.showWhatsNewAfterUpgrades": false,
+                "gitlens.telemetry.enabled": false,
+                "telemetry.feedback.enabled": false,
+                "telemetry.telemetryLevel": "off",
+                "files.exclude": {
+                    "**/.git": true,
+                    "**/bin": true,
+                    "**/obj": true
+                },
+                "search.exclude": {
+                    "**/.git": true,
+                    "**/bin": true,
+                    "**/obj": true
+                }
             },
             "extensions": [
-                "ms-dotnettools.vscodeintellicode-csharp",
+                "ms-dotnettools.csdevkit",
                 "editorconfig.editorconfig",
                 "eamodio.gitlens",
                 "dotjoshjohnson.xml"
             ]
         }
     },
-    "onCreateCommand": "git config --global --add safe.directory /workspaces/Sakra.Spar.Strivo2Xlsx && dotnet tool install --global dotnet-outdated-tool"
+    "onCreateCommand": "git config --global --add safe.directory /workspaces/DoIt.ExcelWriter && dotnet tool install --global dotnet-outdated-tool"
 }
