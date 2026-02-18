@@ -25,8 +25,4 @@
     <None Include="$(ProjectDir)/../README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="SharpCompress" Version="0.37.2" />
-  </ItemGroup>
-
 </Project>

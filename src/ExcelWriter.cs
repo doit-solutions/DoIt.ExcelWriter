@@ -1,5 +1,5 @@
 using System.Globalization;
-using SharpCompress.Writers.Zip;
+using System.IO.Compression;
 
 namespace DoIt.ExcelWriter;
 
@@ -9,7 +9,7 @@ public class ExcelWriter : IExcelWriter
     private const string SpreadsheetMlXmlNamespace = "http://schemas.openxmlformats.org/spreadsheetml/2006/main";
     private const string ContentTypesXmlNamespace = "http://schemas.openxmlformats.org/package/2006/content-types";
 
-    private readonly ZipWriter _zip;
+    private readonly ZipArchive _zip;
     private readonly IDictionary<int, string> _sheets = new Dictionary<int, string>();
 
     private bool _introWritten = false;
@@ -22,7 +22,7 @@ public class ExcelWriter : IExcelWriter
     [Obsolete("This constructor will be removed in a future version. Please use ExcelWriterFactory.Create() instead.")]
     public ExcelWriter(Stream destination, bool leaveOpen = false)
     {
-        _zip = new ZipWriter(destination, new ZipWriterOptions(SharpCompress.Common.CompressionType.Deflate) { LeaveStreamOpen = leaveOpen });
+        _zip = new ZipArchive(destination, ZipArchiveMode.Create, leaveOpen);
     }
 
     public async Task<IExcelSheetWriter<T>> AddSheetAsync<T>(string? name = null, CancellationToken cancellationToken = default)
@@ -30,7 +30,7 @@ public class ExcelWriter : IExcelWriter
         await WriteIntroAsync(cancellationToken);
 
         _sheets.Add(new KeyValuePair<int, string>(_sheets.Count() + 1, name ?? typeof(T).Name));
-        return new ExcelSheetWriter<T>(_zip.WriteToStream($"/xl/worksheets/sheet{_sheets.Count()}.xml", new ZipWriterEntryOptions { }));
+        return new ExcelSheetWriter<T>(_zip.CreateEntry($"/xl/worksheets/sheet{_sheets.Count()}.xml").Open());
     }
 
     public async Task<IDbDataReaderExcelSheetWriter> AddDbDataReaderSheetAsync(string? name = null, CancellationToken cancellationToken = default)
@@ -39,7 +39,7 @@ public class ExcelWriter : IExcelWriter
 
         var idx = _sheets.Count() + 1;
         _sheets.Add(new KeyValuePair<int, string>(idx, name ?? $"Sheet{idx.ToString(CultureInfo.InvariantCulture)}"));
-        return new DbDataReaderExcelSheetWriter(_zip.WriteToStream($"/xl/worksheets/sheet{_sheets.Count()}.xml", new ZipWriterEntryOptions { }));
+        return new DbDataReaderExcelSheetWriter(_zip.CreateEntry($"/xl/worksheets/sheet{_sheets.Count()}.xml").Open());
     }
 
     public void Dispose()
@@ -59,7 +59,7 @@ public class ExcelWriter : IExcelWriter
         if (!_introWritten)
         {
             // Write the main relationships XML.
-            using (var writer = XmlWriterFactory.Create(_zip.WriteToStream("/_rels/.rels", new ZipWriterEntryOptions { })))
+            using (var writer = XmlWriterFactory.Create(_zip.CreateEntry("/_rels/.rels").Open()))
             {
                 await writer.WriteStartDocumentAsync();
                 await writer.WriteStartElementAsync(null, "Relationships", RelationshipsXmlNamespace);
@@ -72,7 +72,7 @@ public class ExcelWriter : IExcelWriter
                 await writer.WriteEndDocumentAsync();
             }
             // Write the stylesheet XML.
-            using (var writer = XmlWriterFactory.Create(_zip.WriteToStream("/xl/styles.xml", new ZipWriterEntryOptions { })))
+            using (var writer = XmlWriterFactory.Create(_zip.CreateEntry("/xl/styles.xml").Open()))
             {
                 await writer.WriteStartDocumentAsync();
                 await writer.WriteStartElementAsync(null, "styleSheet", SpreadsheetMlXmlNamespace);
@@ -564,7 +564,7 @@ public class ExcelWriter : IExcelWriter
     private async Task WriteOutroAsync()
     {
         // Write the [Content-Types].xml file.
-        using (var writer = XmlWriterFactory.Create(_zip.WriteToStream("[Content_Types].xml", new ZipWriterEntryOptions { })))
+        using (var writer = XmlWriterFactory.Create(_zip.CreateEntry("[Content_Types].xml").Open()))
         {
             await writer.WriteStartDocumentAsync();
             await writer.WriteStartElementAsync(null, "Types", ContentTypesXmlNamespace);
@@ -595,7 +595,7 @@ public class ExcelWriter : IExcelWriter
             await writer.WriteEndDocumentAsync();
         }
         // Write the workbook XML.
-        using (var writer = XmlWriterFactory.Create(_zip.WriteToStream("/xl/workbook.xml", new ZipWriterEntryOptions { })))
+        using (var writer = XmlWriterFactory.Create(_zip.CreateEntry("/xl/workbook.xml").Open()))
         {
             await writer.WriteStartDocumentAsync();
             await writer.WriteStartElementAsync(null, "workbook", SpreadsheetMlXmlNamespace);
@@ -613,7 +613,7 @@ public class ExcelWriter : IExcelWriter
             await writer.WriteEndDocumentAsync();
         }
         // Write the workbook relationships XML.
-        using (var writer = XmlWriterFactory.Create(_zip.WriteToStream("/xl/_rels/workbook.xml.rels", new ZipWriterEntryOptions { })))
+        using (var writer = XmlWriterFactory.Create(_zip.CreateEntry("/xl/_rels/workbook.xml.rels").Open()))
         {
             await writer.WriteStartDocumentAsync();
             await writer.WriteStartElementAsync(null, "Relationships", RelationshipsXmlNamespace);
